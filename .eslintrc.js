@@ -18,4 +18,11 @@ module.exports = {
       semi: ['error', 'always'],
       quotes: ['error', 'single'],
     },
+    plugins: ['import'],
+    rules: {
+      'import/extensions': ['error', 'always', {
+        'js': 'never',
+        'jsx': 'never'
+      }],
+    },  
   };  

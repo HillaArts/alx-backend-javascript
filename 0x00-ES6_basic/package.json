@@ -7,12 +7,12 @@
     "test": "jest",
     "dev": "node"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.15.4",
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
     "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.29.1",
     "jest": "^27.2.5"
   },
   "babel": {
@@ -37,8 +37,14 @@
       "sourceType": "module"
     },
     "rules": {
-      "semi": ["error", "always"],
-      "quotes": ["error", "single"]
+      "semi": [
+        "error",
+        "always"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ]
     }
   },
   "author": "",
