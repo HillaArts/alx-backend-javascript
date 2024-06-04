@@ -1,15 +1,9 @@
-export function taskFirst() {
-    const task = 'I prefer const when I can.';
-    return task;
+export default function updateStudentGradeByCity(students, city, newGrades) {
+    return students
+      .filter(({ location }) => location === city)
+      .map((obj) => {
+        const sNewGrade = newGrades.filter(({ studentId }) => studentId === obj.id);
+        const { grade = 'N/A' } = sNewGrade.length > 0 ? sNewGrade[0] : {};
+        return { ...obj, grade };
+      });
   }
-  
-  export function getLast() {
-    return ' is okay';
-  }
-  
-  export function taskNext() {
-    let combination = 'But sometimes let';
-    combination += getLast();
-  
-    return combination;
-  }  
