@@ -1,6 +1,6 @@
 const readDatabase = require('../utils');
 
-class student_controller {
+class StudentsController {
     static getAllStudents(request, response) {
         response.statusCode = 200;
         response.setHeader('Content-Type', 'text/plain');
@@ -31,4 +31,4 @@ class student_controller {
     }
 }
 
-export default student_controller;
+export default StudentsController;
