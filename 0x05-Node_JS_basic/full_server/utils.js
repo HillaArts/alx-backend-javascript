@@ -1,31 +1,29 @@
-const fs = require('fs');
+import fs from 'fs';
 
-async function countStudents(path) {
-  let data;
-  try {
-    data = await fs.promises.readFile(path, 'utf8');
-  } catch (error) {
-    throw new Error('Cannot load the database');
-  }
-  const students = data.split('\r\n').slice(1)
-    .map((student) => student.split(','))
-    .map((student) => ({
-      firstName: student[0],
-      lastName: student[1],
-      age: student[2],
-      field: student[3],
-    }));
-    let fields = students.map(student => student.field);
-    let unique_fields = new Set(fields);
-    let students_by_field = {};
-    for (let field of unique_fields) {
-      students_by_field[field] = [];
+const readDatabase = (path) => new Promise((resolve, reject) => {
+  fs.readFile(path, 'utf8', (err, data) => {
+    if (err) reject(Error('Cannot load the database'));
+    else {
+      const hashTable = {};
+      const lines = data.split('\n');
+      let students = -1;
+      for (const line of lines) {
+        if (line.trim() !== '') {
+          const columns = line.split(',');
+          const field = columns[3];
+          const firstName = columns[0];
+          if (students >= 0) {
+            if (!Object.hasOwnProperty.call(hashTable, field)) {
+              hashTable[field] = [];
+            }
+            hashTable[field] = [...hashTable[field], firstName];
+          }
+          students += 1;
+        }
+      }
+      resolve(hashTable);
     }
-    for (let student of students) {
-        students_by_field[student.field].push(student.firstName);
-    }
-    console.log(students_by_field);
-    return students_by_field;
-}
+  });
+});
 
-module.exports = countStudents;
+export default readDatabase;
